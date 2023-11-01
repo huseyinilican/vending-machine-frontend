@@ -1,5 +1,6 @@
 import React from "react";
 import { Product } from "../types";
+import "./ProductSelection.css";
 
 type ProductSelectionProps = {
   products?: Product[];
@@ -14,15 +15,29 @@ const ProductSelection: React.FC<ProductSelectionProps> = ({
 }) => {
   return (
     <div className="product-selection">
-      <h3>Product Selection</h3>
-      <div className="product-buttons">
+      <div className="product-row">
         {products?.map((product, index) => (
           <button
             key={index}
+            className="product-card"
             onClick={() => onSelectProduct(product)}
-            disabled={product.price > balance}
+            disabled={!(balance >= product.price) || product.stock == 0}
           >
-            {product.name} ({product.price} units)
+            {product.stock > 0 ? (
+              <div className="product-stock">
+                {}Stock: {product.stock}
+              </div>
+            ) : (
+              <div className="product-out-of-stock">Out Of Stock</div>
+            )}
+
+            <img
+              className="product-image"
+              src={product.imageUrl}
+              alt={product.name}
+            />
+            <div className="product-name">{product.name}</div>
+            <div className="product-price">{product.price} units</div>
           </button>
         ))}
       </div>

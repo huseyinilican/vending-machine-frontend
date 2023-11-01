@@ -1,5 +1,7 @@
+import { ObjectId } from "mongodb";
+
 export type Product = {
-  id?: string;
+  id: string;
   name: string;
   price: number;
   stock: number;
@@ -8,7 +10,7 @@ export type Product = {
 };
 
 export type Transaction = {
-  id?: string;
+  id?: ObjectId;
   product?: Product;
   insertedMoney: number;
   change: number;
@@ -16,7 +18,7 @@ export type Transaction = {
 };
 
 export type MachineSettings = {
-  id?: string;
+  id?: ObjectId;
   someKey: string;
   resetRequired: boolean;
   collectedMoney: number;

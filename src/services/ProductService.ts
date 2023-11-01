@@ -15,6 +15,9 @@ class ProductService {
   updateProduct(productId: string, product: Product) {
     return api.put<Product>(`${PRODUCT_BASE_URL}/${productId}`, product);
   }
+  updateProducts(products: Array<Product>) {
+    return api.put<Array<Product>>(`${PRODUCT_BASE_URL}/bulk-update`, products);
+  }
 }
 
 export default new ProductService();

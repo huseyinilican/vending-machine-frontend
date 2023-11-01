@@ -1,5 +1,6 @@
 import React from "react";
 import { Transaction } from "../types";
+import "./TransactionHistory.css";
 
 type TransactionHistoryProps = {
   transactions: Transaction[];
@@ -11,17 +12,19 @@ const TransactionHistory: React.FC<TransactionHistoryProps> = ({
   return (
     <div className="transaction-history">
       <h3>Transaction History</h3>
-      <ul>
+      <div className="transaction-history-list">
         {transactions.map((transaction, index) => (
-          <li key={index}>
-            Product: {transaction.product?.name}
-            <br />
-            Inserted Money: {transaction.insertedMoney} units
-            <br />
-            Change Given: {transaction.change} units
-          </li>
+          <div key={index} className="transaction-entry">
+            <div>
+              {transaction.product
+                ? `Bought ${transaction.product.name}`
+                : "Refunded"}
+            </div>
+            <div>Inserted: {transaction.insertedMoney} units</div>
+            <div>Change: {transaction.change} units</div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

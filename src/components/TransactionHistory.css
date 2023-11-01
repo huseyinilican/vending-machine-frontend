@@ -1,21 +1,26 @@
 .transaction-history {
-    margin: 10px;
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  li {
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  li:nth-child(odd) {
-    background-color: #e0e0e0;
-  }
-  
+  width: 300px;
+  height: 300px;
+  overflow-y: auto;
+}
+
+.transaction-history h3 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.transaction-history .transaction-history-list {
+  margin-top: 8px;
+}
+
+.transaction-history .transaction-entry {
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+}
+
+.transaction-history .transaction-entry:hover {
+  background-color: #f0f0f0;
+}
