@@ -1,6 +1,3 @@
-.vending-machine-container {
-  }
-
 .vending-machine-container h1 {
     text-align: center;
     padding: 10px
@@ -14,9 +11,6 @@
   
 .product-selection-section{
     display: flex;
-}
-
-.money-insertion-section {
 }
 
 .money-insertion-section .coins {
@@ -34,6 +28,16 @@
   line-height: 75px;
 }
 
+.unit-related-information{
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.unit-related-information .format {
+  display: flex;
+  flex-direction: column;
+}
 
 .balance {
   font-size: 32px;

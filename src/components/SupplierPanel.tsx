@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from "react";
 import { Product } from "../types";
 import "./SupplierPanel.css";
 import ProductService from "../services/ProductService";
+import MachineSettingsService from "../services/MachineSettingsService";
+
+import { useEffect } from "react";
 
 type SupplierPanelPopupProps = {
   onClose: () => void;
   products: Array<Product> | undefined;
   setProducts: React.Dispatch<React.SetStateAction<Product[] | undefined>>;
+  collectedMoney: number;
+  setCollectedMoney: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
   onClose,
   products,
   setProducts,
+  collectedMoney,
+  setCollectedMoney,
 }) => {
+  [];
+
   const onAddToStocks = () => {
     const productList: Array<Product> = [];
 
@@ -49,7 +57,16 @@ const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
     updateProducts(productList);
   };
 
-  const onCollectMoney = () => {};
+  const onCollectMoney = () => {
+    MachineSettingsService.getMachineSettings().then((response) => {
+      MachineSettingsService.updateMachineSettingsWithKey({
+        ...response.data,
+        collectedMoney: response.data.collectedMoney + collectedMoney,
+      }).then(() => {
+        setCollectedMoney(0);
+      });
+    });
+  };
 
   const onReset = () => {};
 
@@ -68,7 +85,7 @@ const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
               <thead>
                 <tr>
                   <th>Product</th>
-                  <th style={{ width: "10%" }}>Price</th>
+                  <th>Price</th>
                   <th>Stock</th>
                   <th>Stock To Add</th>
                 </tr>
@@ -96,14 +113,19 @@ const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
 
           <div className="supplier-operations">
             <h4 style={{ textAlign: "center" }}>Operations</h4>
-            <div style={{ display: "flex", gap: "10px" }}>
+            <div className="change-operations">
               <button onClick={onAddToStocks}>Add to Stocks</button>
               <button onClick={onPriceChanges}>Change Prices</button>
             </div>
-            <button style={{ marginBottom: "20px" }} onClick={onReset}>
+            <button className="reset-button" onClick={onReset}>
               Reset
             </button>
-            <button onClick={onCollectMoney}>Collect Money</button>
+            <div className="collected-money-container">
+              <div className="collected-money">{collectedMoney} Units</div>
+              <div>
+                <button onClick={onCollectMoney}>Collect Money</button>
+              </div>
+            </div>
           </div>
         </div>
         <button onClick={onClose}>Close</button>

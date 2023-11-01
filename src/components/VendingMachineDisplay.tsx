@@ -12,6 +12,7 @@ const VendingMachineDisplay: React.FC = () => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [balance, setBalance] = useState(0);
   const [change, setChange] = useState(0);
+  const [collectedMoney, setCollectedMoney] = useState(0);
 
   const [showSupplierPanel, setShowSupplierPanel] = useState(false);
   const [showTransactionHistory, setShowTransactionHistory] = useState(false);
@@ -53,9 +54,12 @@ const VendingMachineDisplay: React.FC = () => {
       });
 
       setProducts(newProducts);
+      setBalance(0);
+      setChange(response.data.change);
+      setCollectedMoney(
+        collectedMoney + (response.data.insertedMoney - response.data.change)
+      );
     });
-    setBalance(0);
-    setChange(balance - product.price);
   };
 
   const handleMoneyInsertion = (money: number) => {
@@ -109,19 +113,13 @@ const VendingMachineDisplay: React.FC = () => {
             <button onClick={() => handleMoneyInsertion(20)}>20 units</button>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              marginBottom: "20px",
-            }}
-          >
-            <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="unit-related-information">
+            <div className="format">
               <h3>Available Units</h3>
               <div className="balance">{balance}</div>
             </div>
 
-            <div style={{ display: "flex", flexDirection: "column" }}>
+            <div className="format">
               <h3>Change</h3>
               <div className="change">{change}</div>
             </div>
@@ -156,6 +154,8 @@ const VendingMachineDisplay: React.FC = () => {
           onClose={closeSupplierPanel}
           products={products}
           setProducts={setProducts}
+          collectedMoney={collectedMoney}
+          setCollectedMoney={setCollectedMoney}
         />
       )}
     </div>

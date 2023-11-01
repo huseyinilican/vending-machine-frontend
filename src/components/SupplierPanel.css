@@ -88,8 +88,27 @@
   .supplier-operations {
     margin-top: 16px;
   }
+
+  .change-operations{
+    display: flex;
+    gap: 10px
+  }
+  .supplier-operations .reset-button{
+    margin-bottom: 20px;
+  }
+
+  .supplier-operations .collected-money-container{
+    display: flex;
+    align-items: center;
+    text-align: center;
+  }
+
+  .collected-money-container .collected-money{
+    margin-right: auto;
+    font-size: 25px;
+  }
+
   
-  /* Style for the "Toggle Supplier Panel" button */
   .toggle-button {
     background-color: #007bff;
     color: #fff;

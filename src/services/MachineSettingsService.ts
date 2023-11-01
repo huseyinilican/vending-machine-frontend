@@ -13,4 +13,13 @@ class MachineSettingsService {
   updateMachineSettings(settings: MachineSettings) {
     return api.put<MachineSettings>(MACHINE_SETTINGS_BASE_URL, settings);
   }
+
+  updateMachineSettingsWithKey(settings: MachineSettings) {
+    return api.put<MachineSettings>(
+      `${MACHINE_SETTINGS_BASE_URL}/machine_settings`,
+      settings
+    );
+  }
 }
+
+export default new MachineSettingsService();
