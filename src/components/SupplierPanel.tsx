@@ -3,8 +3,6 @@ import "./SupplierPanel.css";
 import ProductService from "../services/ProductService";
 import MachineSettingsService from "../services/MachineSettingsService";
 
-import { useEffect } from "react";
-
 type SupplierPanelPopupProps = {
   onClose: () => void;
   products: Array<Product> | undefined;
@@ -20,8 +18,6 @@ const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
   collectedMoney,
   setCollectedMoney,
 }) => {
-  [];
-
   const onAddToStocks = () => {
     const productList: Array<Product> = [];
 
@@ -32,8 +28,10 @@ const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
       if (element != undefined) {
         const value = element.value;
         if (value != undefined && value != "") {
-          product.stock += Number(value);
-          productList.push(product);
+          productList.push({
+            ...product,
+            stock: product.stock + Number(value),
+          });
         }
       }
     });
@@ -49,8 +47,10 @@ const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
       if (element != undefined) {
         const value = element.value;
         if (value != undefined && value != "") {
-          product.price = Number(value);
-          productList.push(product);
+          productList.push({
+            ...product,
+            price: Number(value),
+          });
         }
       }
     });
@@ -71,7 +71,9 @@ const SupplierPanel: React.FC<SupplierPanelPopupProps> = ({
   const onReset = () => {};
 
   const updateProducts = (productList: Array<Product>) => {
-    ProductService.updateProducts(productList).then((response) => {});
+    ProductService.updateProducts(productList).then(({ data }) => {
+      setProducts(data);
+    });
   };
 
   return (
