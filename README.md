@@ -123,4 +123,3 @@ inventory after changes.
   terminals. If changing the API URL, restart Vite.
 - **No sample data:** initialization runs only on an empty Docker volume.
   Use the explicit reset command above only if existing local data is disposable.
-
